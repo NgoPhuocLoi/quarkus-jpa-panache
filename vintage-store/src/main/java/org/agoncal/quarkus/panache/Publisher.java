@@ -1,14 +1,17 @@
 package org.agoncal.quarkus.panache;
 
+import java.time.Instant;
+
 import io.quarkus.hibernate.orm.panache.PanacheEntity;
 import jakarta.persistence.Entity;
 
-
 /**
  * Example JPA entity defined as a Panache Entity.
- * An ID field of Long type is provided, if you want to define your own ID field extends <code>PanacheEntityBase</code> instead.
+ * An ID field of Long type is provided, if you want to define your own ID field
+ * extends <code>PanacheEntityBase</code> instead.
  *
- * This uses the active record pattern, you can also use the repository pattern instead:
+ * This uses the active record pattern, you can also use the repository pattern
+ * instead:
  * .
  *
  * Usage (more example on the documentation)
@@ -20,10 +23,19 @@ import jakarta.persistence.Entity;
  *         entity1.persist();
  *
  *         List<MyEntity> entities = MyEntity.listAll();
- *     }
+ * }
  * }
  */
 @Entity
-public class MyEntity extends PanacheEntity {
-    public String field;
+public class Publisher extends PanacheEntity {
+    public String name;
+    public Instant createdDate = Instant.now();
+
+    public Publisher(String name) {
+        this.name = name;
+    }
+
+    public Publisher() {
+    }
+
 }
