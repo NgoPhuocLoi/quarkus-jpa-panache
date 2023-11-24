@@ -1,5 +1,6 @@
 package org.agoncal.quarkus.panache;
 
+import org.agoncal.quarkus.panache.publisher.Publisher;
 import org.junit.jupiter.api.Assertions;
 import org.junit.jupiter.api.Test;
 

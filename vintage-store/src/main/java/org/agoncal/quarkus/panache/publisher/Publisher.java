@@ -1,4 +1,4 @@
-package org.agoncal.quarkus.panache;
+package org.agoncal.quarkus.panache.publisher;
 
 import java.time.Instant;
 
