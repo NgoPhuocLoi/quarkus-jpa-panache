@@ -8,6 +8,7 @@ import org.junit.jupiter.api.Test;
 import io.quarkus.test.TestTransaction;
 import io.quarkus.test.junit.QuarkusTest;
 import jakarta.inject.Inject;
+import jakarta.persistence.EntityNotFoundException;
 
 @QuarkusTest
 public class CustomerRepositoryTest {
@@ -18,14 +19,26 @@ public class CustomerRepositoryTest {
     @Test
     @TestTransaction
     public void shouldCreateAndFindAnCustomer() {
+        long count = customerRepository.count();
+        long listAllSize = customerRepository.listAllSorted().size();
+        Assertions.assertEquals(count, listAllSize);
         Customer customer = new Customer("Customer 1", "ctm1@gmail.com");
 
         customerRepository.persist(customer);
         Assertions.assertNotNull(customer.getId());
 
+        Assertions.assertEquals(count + 1, customerRepository.count());
+
+        Assertions.assertEquals(count + 1, customerRepository.listAllWithName("Customer 1").size());
+
         Customer foundCustomer = customerRepository.findById(customer.getId());
 
-        Assertions.assertEquals("ctm1@gmail.com", foundCustomer.getEmail());
+        var foundCustomerWithName = customerRepository.getCustomerWithName("Customer 1")
+                .orElseThrow(EntityNotFoundException::new);
 
+        Assertions.assertEquals(foundCustomerWithName.getEmail(), foundCustomer.getEmail());
+
+        customerRepository.deleteById(foundCustomer.getId());
+        Assertions.assertEquals(count, customerRepository.count());
     }
 }
