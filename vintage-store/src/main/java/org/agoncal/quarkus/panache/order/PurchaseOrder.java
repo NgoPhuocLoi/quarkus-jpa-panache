@@ -11,6 +11,7 @@ import io.quarkus.hibernate.orm.panache.PanacheEntity;
 import jakarta.persistence.CascadeType;
 import jakarta.persistence.Column;
 import jakarta.persistence.Entity;
+import jakarta.persistence.JoinColumn;
 import jakarta.persistence.ManyToOne;
 import jakarta.persistence.OneToMany;
 import jakarta.persistence.Table;
@@ -22,11 +23,12 @@ public class PurchaseOrder extends PanacheEntity {
     public LocalDate date = LocalDate.now();
 
     @ManyToOne(cascade = CascadeType.PERSIST)
+    @JoinColumn(name = "customer_id")
     public Customer customer;
 
     @OneToMany(mappedBy = "order", cascade = { CascadeType.REMOVE, CascadeType.PERSIST }, orphanRemoval = true)
     public List<OrderLine> orderLines = new ArrayList<>();
 
-    @Column(name = "created_date")
+    @Column(name = "created_date", nullable = false)
     public Instant createdDate = Instant.now();
 }

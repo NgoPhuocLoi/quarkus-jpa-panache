@@ -22,4 +22,5 @@ public class CustomerRepository implements PanacheRepository<Customer> {
     public Optional<Customer> getCustomerWithName(String name) {
         return find("name = ?1", name).firstResultOptional();
     }
+
 }

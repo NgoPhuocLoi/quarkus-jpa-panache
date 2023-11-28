@@ -4,15 +4,15 @@ import java.time.LocalDate;
 
 import org.agoncal.quarkus.panache.publisher.Publisher;
 
+import jakarta.persistence.CascadeType;
 import jakarta.persistence.Column;
 import jakarta.persistence.Entity;
 import jakarta.persistence.EnumType;
 import jakarta.persistence.Enumerated;
+import jakarta.persistence.JoinColumn;
 import jakarta.persistence.ManyToOne;
-import jakarta.persistence.Table;
 
 @Entity
-@Table(name = "t_books")
 public class Book extends Item {
     @Column(length = 15)
     public String isbn;
@@ -27,7 +27,8 @@ public class Book extends Item {
     @Enumerated(EnumType.STRING)
     public Language language;
 
-    @ManyToOne
+    @ManyToOne(cascade = CascadeType.PERSIST)
+    @JoinColumn(name = "publisher_id")
     public Publisher publisher;
 
     public Book(String isbn, Integer nbOfPages, LocalDate publicationDate) {

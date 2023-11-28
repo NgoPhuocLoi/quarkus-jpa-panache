@@ -6,10 +6,8 @@ import java.util.List;
 import jakarta.persistence.Column;
 import jakarta.persistence.Entity;
 import jakarta.persistence.OneToMany;
-import jakarta.persistence.Table;
 
 @Entity
-@Table(name = "t_cds")
 public class CD extends Item {
     @Column(name = "music_company ")
     public String musicCompany;
