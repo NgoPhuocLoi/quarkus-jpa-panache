@@ -1,0 +1,21 @@
+{#include base.html} {#title} Customers {/title} {#body}
+
+<table class="table">
+  <thead>
+    <tr>
+      <th scope="col">#</th>
+      <th scope="col">Name</th>
+      <th scope="col">Email</th>
+    </tr>
+  </thead>
+  <tbody>
+    {#for c in customers}
+    <tr>
+      <th scope="row">{c.id}</th>
+      <td>{c.name}</td>
+      <td>{c.email}</td>
+    </tr>
+    {/for}
+  </tbody>
+</table>
+{/body} {/include}
